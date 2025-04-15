@@ -1,28 +1,47 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { useSavedMovies } from "../store/useSavedMovies";
 
 const SettingsScreen = () => {
+  const { savedMovies, loadMovies, removeMovie, clearMovies } =
+    useSavedMovies();
+
+  useEffect(() => {
+    loadMovies();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>⚙️ Settings</Text>
-
-      {/* Displaty movies */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>🎬 Stored movies</Text>
-        <Text style={styles.placeholder}>(No movies stored, yet)</Text>
+
+        {savedMovies.length === 0 ? (
+          <Text style={styles.placeholder}>(No movies stored, yet)</Text>
+        ) : (
+          <FlatList
+            data={savedMovies}
+            keyExtractor={(item) => item.imdbID}
+            renderItem={({ item }) => (
+              <View style={{ marginBottom: 8 }}>
+                <Text>{item.Title}</Text>
+                <Pressable onPress={() => removeMovie(item.imdbID)}>
+                  <Text style={{ color: "red" }}>🗑️ Slett</Text>
+                </Pressable>
+              </View>
+            )}
+          />
+        )}
       </View>
+
       <Pressable
-        onPress={() => {
-          console.log("Clear stored movies");
-        }}
+        onPress={clearMovies}
         style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? "#ddd" : "#eee",
-          },
+          { backgroundColor: pressed ? "#ddd" : "#eee" },
           { padding: 16, borderRadius: 8 },
         ]}
       >
-        <Text>Clear stored movies</Text>
+        <Text>🧹 Clear stored movies</Text>
       </Pressable>
     </View>
   );

@@ -1,26 +1,21 @@
-import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  StyleSheet,
-  Touchable,
-  TouchableOpacity,
-} from "react-native";
-import { Movie } from "@/app/types/Movie";
-import { useRouter } from "expo-router";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Movie } from "../types/Movie";
 
 interface Props {
   movie: Movie;
   onPress: () => void;
+  extraAction?: React.ReactNode;
 }
 
-export default function MovieCard({ movie, onPress }: Props) {
+export default function MovieCard({ movie, onPress, extraAction }: Props) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Image source={{ uri: movie.Poster }} style={styles.image} />
       <View style={styles.info}>
-        <Text style={styles.title}>{movie.Title}</Text>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>{movie.Title}</Text>
+          {extraAction}
+        </View>
         <Text>
           {movie.Year} – {movie.Type}
         </Text>
@@ -34,4 +29,9 @@ const styles = StyleSheet.create({
   image: { width: 80, height: 120, borderRadius: 8 },
   info: { marginLeft: 12, justifyContent: "center", flex: 1 },
   title: { fontWeight: "bold", fontSize: 16 },
+  titleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
 });

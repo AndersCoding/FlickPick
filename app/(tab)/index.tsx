@@ -5,6 +5,8 @@ import { Movie } from "../types/Movie";
 import MovieCard from "../components/MovieCard";
 import { useRouter } from "expo-router";
 import { useMovieStore } from "../store/useMovieStore";
+import { useSavedMovies } from "../store/useSavedMovies";
+import {Ionicons} from "@expo/vector-icons";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -12,6 +14,17 @@ export default function HomeScreen() {
   const setQuery = useMovieStore((state) => state.setQuery);
   const movies = useMovieStore((state) => state.movies);
   const setMovies = useMovieStore((state) => state.setMovies);
+  const saveMovie = useSavedMovies((state) => state.saveMovie);
+  const savedMovies = useSavedMovies((state) => state.savedMovies);
+  const removeMovie = useSavedMovies((state) => state.removeMovie);
+
+  const isSaved = (movie: Movie) =>
+    savedMovies.some((m) => m.imdbID === movie.imdbID);
+
+  const toggleSave = (movie: Movie) => {
+    isSaved(movie) ? removeMovie(movie.imdbID) : saveMovie(movie);
+  };
+
 
   const handleSearch = async () => {
     if (!query) return;
@@ -36,6 +49,18 @@ export default function HomeScreen() {
           <MovieCard
             movie={item}
             onPress={() => router.push(`/movie/${item.imdbID}`)}
+            // 🔽 Lagre ved å trykke på filmikonet:
+            extraAction={
+              <Text onPress={() => saveMovie(item)} style={styles.saveIcon}>
+                <Ionicons
+                  name={isSaved(item) ? "bookmark" : "bookmark-outline"}
+                  size={24}
+                  color={isSaved(item) ? "dodgerblue" : "gray"}
+                  onPress={() => toggleSave(item)}
+                  style={styles.saveIcon}
+                />
+              </Text>
+            }
           />
         )}
       />
@@ -50,5 +75,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
+  },
+  titleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  saveIcon: {
+    fontSize: 40,
+    marginLeft: 12,
   },
 });
