@@ -4,7 +4,7 @@ import React from 'react'
 const moviePicker = () => {
   return (
     <View>
-      <Text>moviePicker</Text>
+      <Text>Under construction</Text>
     </View>
   )
 }
