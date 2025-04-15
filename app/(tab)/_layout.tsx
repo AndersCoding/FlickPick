@@ -4,21 +4,32 @@ import React from 'react'
 
 const _layout = () => {
   return (
-  <Tabs
-  screenOptions={{
-    tabBarStyle: {
-      height: 50,
-      paddingBottom: 4,
-      paddingTop: 4,
-    },
-    tabBarLabelStyle: {
-      fontSize: 10,
-    },
-  }}
->
-<Tabs.Screen name="index" options={{ title: 'Home', headerShown:false}} />
-  </Tabs>
-  )
+    <Tabs
+      screenOptions={{
+        tabBarStyle: {
+          height: 50,
+          paddingBottom: 4,
+          paddingTop: 4,
+        },
+        tabBarLabelStyle: {
+          fontSize: 10,
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{ title: "Home", headerShown: false }}
+      />
+      <Tabs.Screen
+        name="moviePicker"
+        options={{ title: "MovieRoll", headerShown: false }}
+      />
+      <Tabs.Screen
+        name="storedMovies"
+        options={{ title: "storedMovies", headerShown: false }}
+      />
+    </Tabs>
+  );
 }
 
 export default _layout

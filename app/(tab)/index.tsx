@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import { searchMovies } from "../services/movieApi";
 import { Movie } from "../types/Movie";
@@ -21,6 +21,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <TextInput
         style={styles.input}
         placeholder="Søk etter filmer..."
