@@ -6,10 +6,10 @@ const SettingsScreen = () => {
     <View style={styles.container}>
       <Text style={styles.title}>⚙️ Innstillinger</Text>
 
-      {/* 🎥 Her kan du vise lagrede filmer senere */}
+      {/* Displaty movies */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>🎬 Lagrede filmer</Text>
-        <Text style={styles.placeholder}>(Ingen filmer lagret ennå)</Text>
+        <Text style={styles.sectionTitle}>🎬 Stored movies</Text>
+        <Text style={styles.placeholder}>(No movies stored, yet)</Text>
       </View>
 
       {/* Her kan du legge til flere innstillinger senere */}
