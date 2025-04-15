@@ -1,18 +1,29 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 const SettingsScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>⚙️ Innstillinger</Text>
+      <Text style={styles.title}>⚙️ Settings</Text>
 
       {/* Displaty movies */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>🎬 Stored movies</Text>
         <Text style={styles.placeholder}>(No movies stored, yet)</Text>
       </View>
-
-      {/* Her kan du legge til flere innstillinger senere */}
+      <Pressable
+        onPress={() => {
+          console.log("Clear stored movies");
+        }}
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? "#ddd" : "#eee",
+          },
+          { padding: 16, borderRadius: 8 },
+        ]}
+      >
+        <Text>Clear stored movies</Text>
+      </Pressable>
     </View>
   );
 };
