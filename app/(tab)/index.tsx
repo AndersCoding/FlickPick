@@ -37,7 +37,7 @@ export default function HomeScreen() {
       <StatusBar barStyle="dark-content" />
       <TextInput
         style={styles.input}
-        placeholder="Søk etter filmer..."
+        placeholder="Search for movies..."
         value={query}
         onChangeText={setQuery}
         onSubmitEditing={handleSearch}

@@ -12,7 +12,7 @@ const SettingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>⚙️ Settings</Text>
+      <Text style={styles.title}>Settings</Text>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>🎬 Stored movies</Text>
 
