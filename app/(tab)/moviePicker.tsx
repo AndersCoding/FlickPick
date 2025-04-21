@@ -22,9 +22,18 @@ const pickRandomMovie = () => {
     return;
   }
 
-  const index = Math.floor(Math.random() * savedMovies.length);
-  setPickedMovie(savedMovies[index]);
+  // Filtrer bort nåværende film fra listen
+  const availableMovies = pickedMovie
+    ? savedMovies.filter((m) => m.imdbID !== pickedMovie.imdbID)
+    : savedMovies;
+
+  // Hvis bare én film er igjen og det er den samme → ikke gjør noe
+  if (availableMovies.length === 0) return;
+
+  const index = Math.floor(Math.random() * availableMovies.length);
+  setPickedMovie(availableMovies[index]);
 };
+
 const acceptRecommendation = () => {
   if (pickedMovie) {
     removeMovie(pickedMovie.imdbID);
@@ -34,28 +43,35 @@ const acceptRecommendation = () => {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Velg en tilfeldig film</Text>
+      <Text style={styles.title}>Pick a random movie</Text>
 
-      <Pressable onPress={pickRandomMovie} style={styles.button}>
-        <Text style={styles.buttonText}>Trykk for å velge film</Text>
-      </Pressable>
+      <View style={styles.content}>
+        {pickedMovie ? (
+          <View style={styles.result}>
+            <Text style={styles.movieTitle}>{pickedMovie.Title}</Text>
+            <Text>
+              {pickedMovie.Year} – {pickedMovie.Type}
+            </Text>
+          </View>
+        ) : (
+          <Text style={styles.placeholder}>No movies stored</Text>
+        )}
+      </View>
 
-      {pickedMovie ? (
-        <View style={styles.result}>
-          <Text style={styles.movieTitle}>{pickedMovie.Title}</Text>
-          <Text>
-            {pickedMovie.Year} – {pickedMovie.Type}
-          </Text>
+      <View style={styles.footer}>
+        <Pressable onPress={pickRandomMovie} style={styles.button}>
+          <Text style={styles.buttonText}>Press to choose movie</Text>
+        </Pressable>
+
+        {pickedMovie && (
           <Pressable
             onPress={acceptRecommendation}
             style={styles.confirmButton}
           >
-            <Text style={styles.confirmText}>✅ Godtatt anbefaling</Text>
+            <Text style={styles.confirmText}>Accept recommendation</Text>
           </Pressable>
-        </View>
-      ) : (
-        <Text style={styles.placeholder}>Ingen filmer valgt ennå</Text>
-      )}
+        )}
+      </View>
     </View>
   );
 }
@@ -65,46 +81,58 @@ export default moviePicker
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 16,
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    textAlign: "center",
+    marginTop: 40,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footer: {
+    marginBottom: 40,
+    alignItems: "center",
   },
   button: {
     padding: 12,
     backgroundColor: "dodgerblue",
     borderRadius: 8,
-    marginBottom: 20,
+    marginBottom: 12,
+    width: 220,
+    alignItems: "center",
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
     fontSize: 16,
   },
+  confirmButton: {
+    backgroundColor: "green",
+    padding: 12,
+    borderRadius: 8,
+    width: 220,
+    alignItems: "center",
+  },
+  confirmText: {
+    color: "white",
+    fontWeight: "bold",
+  },
   movieTitle: {
     fontSize: 20,
     fontWeight: "600",
     marginBottom: 4,
   },
-  result: {
-    alignItems: "center",
-  },
   placeholder: {
-    marginTop: 20,
     fontStyle: "italic",
     color: "gray",
   },
-  confirmButton: {
-    marginTop: 16,
-    backgroundColor: "green",
-    padding: 10,
-    borderRadius: 8,
-  },
-  confirmText: {
-    color: "white",
-    fontWeight: "bold",
+  result: {
+    alignItems: "center",
   },
 });
