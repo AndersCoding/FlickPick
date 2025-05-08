@@ -29,11 +29,9 @@ export default function DetailScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* 🔙 Tilbake-knapp */}
       <Pressable onPress={() => router.back()}>
-        <Text style={styles.back}>⬅ Tilbake</Text>
+        <Text style={styles.back}>Tilbake</Text>
       </Pressable>
-
       <Image source={{ uri: movie.Poster }} style={styles.image} />
       <Text style={styles.title}>{movie.Title}</Text>
       <Text>

@@ -1,7 +1,7 @@
 # 🎬 FlickPick
 
 Ever been stranded on the couch on a day off, uncertain what to watch, while devouring your third pack of noodles 🍜?  
-Well, look no further, dudes and dudettes. **FlickPick** will do the pickin' for you. 🎲📽️
+Well, look no further, dudes and dudettes. **FlickPick** will do the pickin' for you.
 
 ---
 
